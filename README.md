@@ -47,3 +47,12 @@ Before loading the data into PostgreSQL and Power BI, I cleaned the raw files in
 * I removed the duplicates using `df.drop_duplicates(subset=['order_id'], keep='last')`. I kept the `'last'` row because it contained the final, successful order placement date.
 ## Key Analytical Findings
 ### 1. Customer Acquisition ROI (LTV:CAC Ratio)
+* The company spent $1,053,993.76 in total to acquire 25,000 customers.
+* The average Customer Acquisition Cost (CAC) is $42.16 per customer.
+* Out of 138,116 attempted orders, 113,559 orders were successfully completed and kept.
+* Each customer completes an average of 4.54 successful orders over their lifetime.
+* Each completed order generates $526.23 in realized profit (totaling $59.76M in realized profit across the company).
+* The average Customer Lifetime Value (LTV) in realized profit is $2,390 ($2,390.35).
+* This gives NovaCart an LTV:CAC ratio of ~57:1 (compared to the industry target of 3:1).
+* **Insight:** The company earns back its $42.16 marketing cost on the customer's very first order. NovaCart is spending too                      little on marketing and can safely increase its ad budget to attract more buyers.
+
