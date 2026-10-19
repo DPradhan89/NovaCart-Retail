@@ -1,0 +1,17 @@
+relationship 109b03e8-6028-44cd-8b45-3afe66f37d24
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sales.order_date
+	toColumn: LocalDateTable_4ccd6ad8-ca5d-48a7-89a8-e075c3517b34.Date
+
+relationship AutoDetected_29cf8ccd-bc31-4d94-a3eb-e390fd1789d9
+	fromColumn: sales.customer_id
+	toColumn: Customers.customer_id
+
+relationship AutoDetected_a0ca05c5-97cb-47c4-b047-96ff142f1a5e
+	fromColumn: order_items.order_id
+	toColumn: sales.order_id
+
+relationship AutoDetected_f8850ca2-232a-451e-aa22-c1ed2d06dea8
+	fromColumn: order_items.product_id
+	toColumn: product_catalog.product_id
+

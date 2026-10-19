@@ -1,0 +1,34 @@
+table Operational_Measures
+	lineageTag: 179c0261-1d90-4eff-9d08-4f1f7e910996
+
+	measure Successfuly_Delivered = CALCULATE(COUNT(order_items[order_id]), sales[cancelled]= 0)
+		formatString: 0
+		lineageTag: 33fcde83-c7a8-48a7-ae45-673c9928dea2
+
+	measure Quantity_returned = CALCULATE(COUNT(order_items[order_id]), sales[return_status] = 1)
+		formatString: 0
+		lineageTag: c1f4f499-e2b2-44eb-b6fe-38916dcfc2a7
+
+	measure 'Deliver_Return Rate_%' = ```
+			DIVIDE([Quantity_returned],[Successfuly_Delivered],0) 
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: de727399-a8bf-488d-97d1-3ef04e3388a9
+
+	measure Revenue_lost_to_Return = CALCULATE(SUM(order_items[net_sales]), sales[return_status] = 1)
+		lineageTag: a2f10463-2c6a-4d0a-b6c1-15877176f1d8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Operational_Measures = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

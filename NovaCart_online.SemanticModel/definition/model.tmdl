@@ -1,0 +1,27 @@
+model Model
+	culture: en-IN
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Customers","sales","order_items","product_catalog","_Measures","Operational_Measures","Cust_Retention_Measure"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Customers
+ref table sales
+ref table DateTableTemplate_b01a97b0-1a16-4720-8d7c-3a3ee49618fb
+ref table LocalDateTable_4ccd6ad8-ca5d-48a7-89a8-e075c3517b34
+ref table order_items
+ref table product_catalog
+ref table _Measures
+ref table Operational_Measures
+ref table Cust_Retention_Measure
+
+ref cultureInfo en-IN
+

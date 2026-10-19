@@ -1,0 +1,296 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "dcef854eeb2fad6073f2",
+  "position": {
+    "x": 10,
+    "y": 0,
+    "z": 0,
+    "height": 1080,
+    "width": 1142,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "product_catalog"
+                    }
+                  },
+                  "Property": "product_name"
+                }
+              },
+              "queryRef": "product_catalog.product_name",
+              "nativeQueryRef": "product_name",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Operational_Measures"
+                    }
+                  },
+                  "Property": "Successfuly_Delivered"
+                }
+              },
+              "queryRef": "order_items.Total_Delivered_orders",
+              "nativeQueryRef": "Successfuly_Delivered"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Operational_Measures"
+                    }
+                  },
+                  "Property": "Quantity_returned"
+                }
+              },
+              "queryRef": "_Measures.Quantity_returned",
+              "nativeQueryRef": "Quantity_returned"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Operational_Measures"
+                    }
+                  },
+                  "Property": "Deliver_Return Rate_%"
+                }
+              },
+              "queryRef": "Operational_Measures.Return Rate_%",
+              "nativeQueryRef": "Deliver_Return Rate_%"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Operational_Measures"
+                    }
+                  },
+                  "Property": "Revenue_lost_to_Return"
+                }
+              },
+              "queryRef": "Operational_Measures.Revenue_lost_to_Return",
+              "nativeQueryRef": "Revenue_lost_to_Return"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Operational_Measures"
+                  }
+                },
+                "Property": "Revenue_lost_to_Return"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTotals": [
+        {
+          "properties": {
+            "columnSubtotals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "rowSubtotals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "grid": [
+        {
+          "properties": {
+            "gridVertical": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "rowHeaders": [
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Left'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnFormatting": [
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Operational_Measures.Revenue_lost_to_Return"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'None'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "9ea4e81c699f81665a5f",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "product_catalog"
+              }
+            },
+            "Property": "product_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "fa0caded38dc94e3a425",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Operational_Measures"
+              }
+            },
+            "Property": "Successfuly_Delivered"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "fd65e116cbdf95a97c98",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Operational_Measures"
+              }
+            },
+            "Property": "Quantity_returned"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "01fc3cf9da802c3a684a",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Operational_Measures"
+              }
+            },
+            "Property": "Deliver_Return Rate_%"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d3a323fd7984b070a23f",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Operational_Measures"
+              }
+            },
+            "Property": "Revenue_lost_to_Return"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

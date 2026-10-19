@@ -1,0 +1,93 @@
+table product_catalog
+	lineageTag: 7ab2d31f-1463-4178-be33-aca42b006ceb
+
+	column product_id
+		dataType: string
+		lineageTag: 9a91d894-2f27-49f1-bf44-bc928c96e577
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name
+		dataType: string
+		lineageTag: 5b6a5787-8672-43b0-a52a-6acf350eb117
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_category
+		dataType: string
+		lineageTag: 6e638773-d439-42fd-80eb-d7209aabcea2
+		summarizeBy: none
+		sourceColumn: product_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_subcategory
+		dataType: string
+		lineageTag: 7cfcbec6-1e7e-49b0-8ab2-4e1bb0533548
+		summarizeBy: none
+		sourceColumn: product_subcategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column brand
+		dataType: string
+		lineageTag: a515259a-7d72-4ecf-b44f-69285999d713
+		summarizeBy: none
+		sourceColumn: brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier
+		dataType: string
+		lineageTag: 6925b080-29e4-4604-a490-321d8a2c2ee4
+		summarizeBy: none
+		sourceColumn: supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_price
+		dataType: double
+		lineageTag: 845724b5-1950-4550-a097-f7491d4955f4
+		summarizeBy: none
+		sourceColumn: unit_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column product_cost
+		dataType: double
+		lineageTag: da515245-188c-4a37-869e-8762690f8ff3
+		summarizeBy: none
+		sourceColumn: product_cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column product_rating
+		dataType: double
+		lineageTag: c90b3756-a434-44e6-bd1d-4d2f6e4a454e
+		summarizeBy: none
+		sourceColumn: product_rating
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition product_catalog = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\banty\Desktop\data analyst\E-commerce\cleaned\product_catalog.csv"),[Delimiter=",", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"product_id", type text}, {"product_name", type text}, {"product_category", type text}, {"product_subcategory", type text}, {"brand", type text}, {"supplier", type text}, {"unit_price", type number}, {"product_cost", type number}, {"product_rating", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

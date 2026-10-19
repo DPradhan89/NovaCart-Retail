@@ -1,0 +1,66 @@
+table _Measures
+	lineageTag: fd6eb6f8-fb6a-4bcb-af07-3a705a4ac208
+
+	measure Net_Rls_Profit = CALCULATE(SUM(sales[profit]), sales[cancelled]=0)
+		lineageTag: 643f4f30-ed82-437c-a3ac-2c15718bbbb5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Profit_margin_% = DIVIDE([Net_Rls_Profit], CALCULATE(SUM(sales[net_sales]), sales[cancelled]= 0))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 9eb3bdcd-5352-4162-853b-fac08ca7bc58
+
+	measure Return_Rate_% =
+			
+			DIVIDE(
+			    CALCULATE(COUNTROWS(sales), sales[return_status]= 1),
+			    COUNTROWS(sales),0
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 578fe1a0-92b5-4e07-9d3c-9355211ae348
+
+	measure AVG_Rls_Profit =
+			DIVIDE([Net_Rls_Profit],
+			                        CALCULATE(COUNT(sales[order_id]), sales[cancelled] = 0),0)
+		lineageTag: 0e9c69c2-5f85-4ca9-95d4-c7f6d8335ed2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure AVG_Success_Order =
+			DIVIDE(CALCULATE(COUNT(sales[order_id]), sales[cancelled] = 0),
+			                            DISTINCTCOUNT(Customers[customer_id]),0)
+		lineageTag: 97493cc0-c08b-4769-94c9-b9632a04aac0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure LTV = [AVG_Rls_Profit]*[AVG_Success_Order]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 77078ad1-4520-4af1-9eac-3d56f3b41ee3
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure CAC = AVERAGE(Customers[customer_acquisition_cost])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: be9641b3-3d03-48bd-bfb7-ea525148f751
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure LTV:CAC = FORMAT((DIVIDE([LTV],[CAC],0)), "0.0") & " : 1"
+		lineageTag: 954b2e5a-8170-4ac5-9dfd-49af3d6e8e7c
+
+	measure AVG_DISCOUNT_PER_ORDER = AVERAGE(sales[discount_amount])
+		formatString: 0
+		lineageTag: 6ddedb18-d5fa-4ea4-9d73-be9656a04208
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
