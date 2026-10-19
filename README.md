@@ -45,37 +45,5 @@ Before loading the data into PostgreSQL and Power BI, I cleaned the raw files in
 * The raw `Sales` table had **10 duplicate `order_id` records**.
 * These duplicates happened because customers had payment method issues on their first attempt and retried the order.
 * I removed the duplicates using `df.drop_duplicates(subset=['order_id'], keep='last')`. I kept the `'last'` row because it contained the final, successful order placement date.
-
-```python
-import pandas as pd
-import numpy as np
-
-# 1. Fixing Wrong Data Types
-sales_df['order_date'] = pd.to_datetime(sales_df['order_date'], format='mixed', errors='coerce')
-
-customers_df['gender'] = np.where(
-    customers_df['gender'].isin(['M', 'F']), 
-    customers_df['gender'], 
-    'Others'
-)
-
-customers_df['age'] = (
-    customers_df['age']
-    .astype(str)
-    .str.extract(r'(\d+)')[0]
-    .astype(float)
-)
-
-# 2. Handling NULL Values
-customers_df['age'] = customers_df['age'].fillna(customers_df['age'].mean())
-
-sales_df['delivery_days'] = sales_df.groupby('city')['delivery_days'].transform(
-    lambda x: x.fillna(x.median())
-)
-sales_df['return_status'] = np.where(sales_df['return_status'] == 'Returned', 1, 0)
-sales_df['return_reason'] = sales_df['return_reason'].fillna('Others')
-sales_df['campaign_name'] = sales_df['campaign_name'].fillna('Unknown')
-sales_df['coupon_code'] = sales_df['coupon_code'].fillna('No coupon')
-
-# 3. Handling Duplicates (Keep last successful payment attempt)
-sales_df = sales_df.drop_duplicates(subset=['order_id'], keep='last')
+## Key Analytical Findings
+### 1. Customer Acquisition ROI (LTV:CAC Ratio)
